@@ -1,0 +1,23 @@
+A single web page app.
+- name: "Frangipani web app"
+- dependencies: ws, cors
+- fullscreen, responsive, scales to always fit screen
+- style: primary color is rgb(75, 165, 193), background color is rgb(66, 66, 66)
+- minimize unused space
+- touch first (meant to be used on a tablet)
+- a layout of controls is received from server in JSON
+	- fader
+	- button (push/toggle)
+	- color wheel with brightness (min: 50, max: 100) according to distance from center
+	- radio selector
+	- labels
+	- control group with header
+- realtime control messages to/from server
+- changing a control changes it for all clients
+- real server is in python, provide a simple version that sends a demo JSON
+- separate classes into different files
+- prevent update infinite loops by tracking which client sends messages
+- ensure all controls are updated correctly
+- when a new client connects, send all controls to it
+- ensure colorwheel a default size before rendering its image. cache image to avoid regenerating it on control change
+- don't use animation for control changes. user feedback must be as fast as possible

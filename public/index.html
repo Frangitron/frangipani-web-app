@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Frangipani Web App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app" class="app-container">
+        <header class="app-header">
+            <h1>Frangipani</h1>
+            <div id="status" class="status-indicator">Connecting...</div>
+        </header>
+        <main class="controls-container" id="controlsContainer"></main>
+    </div>
+
+    <!-- Control Templates -->
+    <template id="fader-template">
+        <div class="control fader-control">
+            <label class="control-label"></label>
+            <div class="fader-wrapper">
+                <input type="range" class="fader-input" />
+                <div class="fader-value"></div>
+            </div>
+        </div>
+    </template>
+
+    <template id="button-template">
+        <div class="control button-control">
+            <button class="button-input"></button>
+        </div>
+    </template>
+
+    <template id="colorwheel-template">
+        <div class="control colorwheel-control">
+            <label class="control-label"></label>
+            <div class="colorwheel-wrapper">
+                <canvas class="colorwheel-canvas"></canvas>
+                <div class="colorwheel-saturation-wrapper">
+                    <input type="range" class="colorwheel-saturation" min="0" max="100" />
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="radio-template">
+        <div class="control radio-control">
+            <label class="control-label"></label>
+            <div class="radio-options"></div>
+        </div>
+    </template>
+
+    <template id="label-template">
+        <div class="control label-control">
+            <div class="label-text"></div>
+        </div>
+    </template>
+
+    <template id="group-template">
+        <div class="control-group">
+            <h2 class="group-header"></h2>
+            <div class="group-controls"></div>
+        </div>
+    </template>
+
+    <!-- Scripts -->
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
