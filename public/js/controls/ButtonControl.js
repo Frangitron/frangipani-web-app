@@ -4,7 +4,7 @@ export class ButtonControl {
         this.onChangeCallback = onChangeCallback;
         this.element = null;
         this.button = null;
-        this.isToggled = control.value || false;
+        this.isPressed = control.value || false;
     }
 
     render() {
@@ -16,26 +16,59 @@ export class ButtonControl {
 
         if (this.control.toggleMode) {
             this.updateToggleState();
-            this.button.addEventListener('click', () => this.handleToggleClick());
+            this.button.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                this.handleToggle();
+            });
+            this.button.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                this.handleToggle();
+            });
         } else {
-            this.button.addEventListener('click', () => this.handlePushClick());
+            this.button.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                this.handlePush();
+            });
+            this.button.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                this.handlePush();
+            });
+            this.button.addEventListener('mouseup', (e) => {
+                e.preventDefault();
+                this.handleRelease();
+            });
+            this.button.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                this.handleRelease();
+            })
         }
 
         return this.element;
     }
 
-    handleToggleClick() {
-        this.isToggled = !this.isToggled;
+    _update() {
         this.updateToggleState();
-        this.onChangeCallback(this.control.id, this.isToggled);
+        this.onChangeCallback(this.control.id, this.isPressed);
     }
 
-    handlePushClick() {
-        this.onChangeCallback(this.control.id, true);
+    handleToggle() {
+        this.isPressed = !this.isPressed;
+        this._update();
+    }
+
+    handlePush() {
+        this.isPressed = true;
+        this._update();
+
+    }
+
+    handleRelease() {
+        this.isPressed = false;
+        this._update();
     }
 
     updateToggleState() {
-        if (this.isToggled) {
+        if (this.isPressed) {
             this.button.classList.add('toggle-active');
         } else {
             this.button.classList.remove('toggle-active');
@@ -43,9 +76,7 @@ export class ButtonControl {
     }
 
     updateUI(value) {
-        if (this.control.toggleMode) {
-            this.isToggled = value;
-            this.updateToggleState();
-        }
+        this.isPressed = value;
+        this.updateToggleState();
     }
 }

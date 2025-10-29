@@ -32,9 +32,16 @@ let controlsState = {
                 {
                     id: 'button1',
                     type: 'button',
-                    label: 'Play',
+                    label: 'Toggle',
                     value: false,
                     toggleMode: true
+                },
+                {
+                    id: 'button2',
+                    type: 'button',
+                    label: 'Push',
+                    value: false,
+                    toggleMode: false
                 }
             ]
         },
