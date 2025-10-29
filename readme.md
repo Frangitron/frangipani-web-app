@@ -1,3 +1,3 @@
 # Frangipani web app
 
-Web app to control Frangipani 
+Static files for Frangipani's web control app
