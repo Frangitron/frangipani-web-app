@@ -20,7 +20,6 @@ fullscreenBtn.addEventListener('click', () => {
 
 // Update button icon when fullscreen state changes
 document.addEventListener('fullscreenchange', () => {
-    // You can update the icon here if needed
     fullscreenBtn.classList.toggle('fullscreen-active', !!document.fullscreenElement);
 });
 

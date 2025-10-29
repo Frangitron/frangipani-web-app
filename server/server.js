@@ -14,12 +14,23 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.use(express.json());
 
 // Store all controls state
+// Store all controls state
 let controlsState = {
     controls: [
+        {
+            id: 'label1',
+            type: 'label',
+            text: 'Status: Ready',
+            row: 0,
+            column: 0,
+            colSpan: 2
+        },
         {
             id: 'group1',
             type: 'group',
             label: 'Main Controls',
+            row: 1,
+            column: 0,
             controls: [
                 {
                     id: 'fader1',
@@ -27,21 +38,28 @@ let controlsState = {
                     label: 'Volume',
                     value: 50,
                     min: 0,
-                    max: 100
+                    max: 100,
+                    row: 0,
+                    column: 0,
+                    colSpan: 2
                 },
                 {
                     id: 'button1',
                     type: 'button',
                     label: 'Toggle',
                     value: false,
-                    toggleMode: true
+                    toggleMode: true,
+                    row: 1,
+                    column: 0
                 },
                 {
                     id: 'button2',
                     type: 'button',
                     label: 'Push',
                     value: false,
-                    toggleMode: false
+                    toggleMode: false,
+                    row: 1,
+                    column: 1
                 }
             ]
         },
@@ -49,27 +67,28 @@ let controlsState = {
             id: 'group2',
             type: 'group',
             label: 'Color Controls',
+            row: 1,
+            column: 1,
             controls: [
                 {
                     id: 'colorwheel1',
                     type: 'colorwheel',
                     label: 'Color',
                     hue: 0,
-                    brightness: 50
+                    brightness: 50,
+                    row: 0,
+                    column: 0
                 },
                 {
                     id: 'radio1',
                     type: 'radio',
                     label: 'Mode',
                     value: 'mode1',
-                    options: ['mode1', 'mode2', 'mode3']
+                    options: ['mode1', 'mode2', 'mode3'],
+                    row: 0,
+                    column: 1
                 }
             ]
-        },
-        {
-            id: 'label1',
-            type: 'label',
-            text: 'Status: Ready'
         }
     ]
 };
