@@ -10,9 +10,45 @@ export class UIRenderer {
     }
 
     renderControls(container, controls, onChangeCallback) {
+        // Calculate grid dimensions for top-level controls
+        let maxRow = 0;
+        let maxCol = 0;
+
+        for (let control of controls) {
+            if (control.type !== 'group') {
+                const row = control.row || 0;
+                const column = control.column || 0;
+                const rowSpan = control.rowSpan || 1;
+                const colSpan = control.colSpan || 1;
+
+                if (row + rowSpan > maxRow) maxRow = row + rowSpan;
+                if (column + colSpan > maxCol) maxCol = column + colSpan;
+            }
+        }
+
+        // Set up grid layout for top-level controls
+        if (maxCol > 0) {
+            container.style.display = 'grid';
+            container.style.gridTemplateColumns = `repeat(${maxCol}, 1fr)`;
+            container.style.gridTemplateRows = `repeat(${maxRow}, auto)`;
+            container.style.gap = 'var(--grid-gap, 8px)';
+        }
+
+        // Render controls
         for (let control of controls) {
             const element = this.renderControl(control, onChangeCallback);
             if (element) {
+                // Apply grid positioning for non-group controls
+                if (control.type !== 'group' && maxCol > 0) {
+                    const row = control.row || 0;
+                    const column = control.column || 0;
+                    const rowSpan = control.rowSpan || 1;
+                    const colSpan = control.colSpan || 1;
+
+                    element.style.gridColumn = `${column + 1} / span ${colSpan}`;
+                    element.style.gridRow = `${row + 1} / span ${rowSpan}`;
+                }
+
                 container.appendChild(element);
             }
         }
@@ -38,7 +74,7 @@ export class UIRenderer {
 
         const controlsContainer = groupElement.querySelector('.group-controls');
 
-        // Create grid layout for controls
+        // Create grid layout for controls within group
         this.createGridLayout(controlsContainer, group.controls, onChangeCallback);
 
         return groupElement;
