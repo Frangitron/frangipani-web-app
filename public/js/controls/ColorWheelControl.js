@@ -8,6 +8,7 @@ export class ColorWheelControl {
         this.brightness = control.brightness || 50;
         this.saturation = 100; // Always 100 internally
         this.isUserInteracting = false;
+        this.imageData = null;
     }
 
     render() {
@@ -29,41 +30,32 @@ export class ColorWheelControl {
         this.canvas.addEventListener('mousedown', (e) => this.handleMouseDown(e));
         this.canvas.addEventListener('touchstart', (e) => this.handleCanvasTouchStart(e));
         this.canvas.addEventListener('touchmove', (e) => this.handleCanvasTouchMove(e));
-        this.canvas.addEventListener('touchend', (e) => this.handleCanvasTouchEnd(e));
+        this.canvas.addEventListener('touchend', (e) => this.handleDocumentMouseUp(e));
 
         // Attach document-level events for mouse tracking outside canvas
         document.addEventListener('mousemove', (e) => this.handleDocumentMouseMove(e));
         document.addEventListener('mouseup', (e) => this.handleDocumentMouseUp(e));
 
-        this.drawColorWheel();
+        // Ensure canvas is rendered before drawing
+        requestAnimationFrame(() => this.drawColorWheel());
 
         return this.element;
     }
 
-    drawColorWheel() {
-        const ctx = this.canvas.getContext('2d');
+    drawBackground(ctx, width, height) {
         const rect = this.canvas.getBoundingClientRect();
-        let width = rect.width;
-        let height = rect.height;
-
-        // Fallback to the default size if canvas hasn't been laid out yet
-        if (width === 0 || height === 0) {
-            width = 300;
-            height = 300;
+        if (this.imageData !== null && (rect.width === width || rect.height === height)) {
+            ctx.putImageData(this.imageData, 0, 0);
+            return
         }
-
-        // Set canvas resolution
-        this.canvas.width = width * window.devicePixelRatio;
-        this.canvas.height = height * window.devicePixelRatio;
-        ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
 
         const centerX = width / 2;
         const centerY = height / 2;
         const radius = Math.min(width, height) / 2 - 5;
 
         // Draw color wheel
-        const imageData = ctx.createImageData(width, height);
-        const data = imageData.data;
+        this.imageData = ctx.createImageData(width, height);
+        const data = this.imageData.data;
 
         for (let y = 0; y < height; y++) {
             for (let x = 0; x < width; x++) {
@@ -90,9 +82,34 @@ export class ColorWheelControl {
             }
         }
 
-        ctx.putImageData(imageData, 0, 0);
+        ctx.putImageData(this.imageData, 0, 0);
+    }
 
-        // Draw current position indicator
+    drawColorWheel() {
+        const ctx = this.canvas.getContext('2d');
+        const rect = this.canvas.getBoundingClientRect();
+        const width = rect.width;
+        const height = rect.height;
+
+        // Fallback to the default size if canvas hasn't been laid out yet
+        if (width === 0 || height === 0) {
+            requestAnimationFrame(() => this.drawColorWheel());
+            return;
+        }
+
+        // Set canvas resolution
+        this.canvas.width = width * window.devicePixelRatio;
+        this.canvas.height = height * window.devicePixelRatio;
+        ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+
+        const centerX = width / 2;
+        const centerY = height / 2;
+        const radius = Math.min(width, height) / 2 - 5;
+
+        // Draw background
+        this.drawBackground(ctx, width, height);
+
+        // Draw the current position indicator
         this.drawPositionIndicator(ctx, centerX, centerY, radius);
     }
 
