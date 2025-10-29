@@ -1,3 +1,4 @@
+
 export class FaderControl {
     constructor(control, onChangeCallback) {
         this.control = control;
@@ -19,6 +20,12 @@ export class FaderControl {
         this.input.min = this.control.min || 0;
         this.input.max = this.control.max || 100;
         this.input.value = this.control.value;
+
+        // Apply vertical class if the flag is set
+        if (this.control.vertical) {
+            this.element.classList.add('fader-vertical');
+            this.input.classList.add('fader-input-vertical');
+        }
 
         this.valueDisplay = this.element.querySelector('.fader-value');
         this.updateValueDisplay();
@@ -58,14 +65,21 @@ export class FaderControl {
     updateValueFromTouch(e) {
         const touch = e.touches[0];
         const rect = this.input.getBoundingClientRect();
-        const percent = (touch.clientX - rect.left) / rect.width;
+
+        let percent;
+        if (this.control.vertical) {
+            // For vertical faders, use clientY (inverted so top = max)
+            percent = 1 - (touch.clientY - rect.top) / rect.height;
+        } else {
+            // For horizontal faders, use clientX
+            percent = (touch.clientX - rect.left) / rect.width;
+        }
+
         const value = this.control.min || 0;
         const max = this.control.max || 100;
         const min = this.control.min || 0;
         const newValue = Math.round(min + percent * (max - min));
-        const clampedValue = Math.max(min, Math.min(max, newValue));
-
-        this.input.value = clampedValue;
+        this.input.value = Math.max(min, Math.min(max, newValue));
         this.handleInput();
     }
 }

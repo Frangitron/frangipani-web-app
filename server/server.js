@@ -87,6 +87,17 @@ let controlsState = {
                     options: ['mode1', 'mode2', 'mode3'],
                     row: 0,
                     column: 1
+                },
+                {
+                    id: 'fader1',
+                    type: 'fader',
+                    label: 'V Slide',
+                    value: 50,
+                    min: 0,
+                    max: 100,
+                    row: 1,
+                    column: 0,
+                    vertical: true
                 }
             ]
         },
