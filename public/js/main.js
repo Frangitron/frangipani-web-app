@@ -2,6 +2,29 @@ import { ControlsManager } from './ControlsManager.js';
 import { WebSocketClient } from './WebSocketClient.js';
 import { UIRenderer } from './UIRenderer.js';
 
+
+// Fullscreen functionality
+const fullscreenBtn = document.getElementById('fullscreenBtn');
+
+fullscreenBtn.addEventListener('click', () => {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {
+            console.log(`Error attempting to enable fullscreen: ${err.message}`);
+        });
+    } else {
+        document.exitFullscreen().catch(err => {
+            console.log(`Error attempting to exit fullscreen: ${err.message}`);
+        });
+    }
+});
+
+// Update button icon when fullscreen state changes
+document.addEventListener('fullscreenchange', () => {
+    // You can update the icon here if needed
+    fullscreenBtn.classList.toggle('fullscreen-active', !!document.fullscreenElement);
+});
+
+
 class App {
     constructor() {
         this.wsClient = new WebSocketClient();
