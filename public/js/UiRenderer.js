@@ -1,8 +1,10 @@
-import { FaderControl } from './controls/FaderControl.js';
 import { ButtonControl } from './controls/ButtonControl.js';
 import { ColorWheelControl } from './controls/ColorWheelControl.js';
-import { RadioControl } from './controls/RadioControl.js';
+import { FaderControl } from './controls/FaderControl.js';
 import { LabelControl } from './controls/LabelControl.js';
+import { RadioControl } from './controls/RadioControl.js';
+import { SpacerControl } from './controls/SpacerControl.js';
+
 
 export class UIRenderer {
     constructor() {
@@ -134,6 +136,8 @@ export class UIRenderer {
                 return new RadioControl(control, onChangeCallback);
             case 'label':
                 return new LabelControl(control);
+            case 'spacer':
+                return new SpacerControl(control);
             default:
                 console.warn(`Unknown control type: ${control.type}`);
                 return null;

@@ -89,6 +89,13 @@ let controlsState = {
                     column: 1
                 }
             ]
+        },
+        {
+            id: 'spacer',
+            type: 'spacer',
+            row: 2,
+            column: 0,
+            colSpan: 2
         }
     ]
 };
