@@ -71,8 +71,8 @@ let controlsState = {
 const clients = new Map();
 
 // Create HTTP server
-const server = app.listen(PORT, () => {
-    console.log(`Frangipani server running at http://localhost:${PORT}`);
+const server = app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Frangipani server running at http://0.0.0.0:${PORT}`);
 });
 
 // Create WebSocket server
