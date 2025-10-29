@@ -3,7 +3,7 @@
     --primary-dark: rgb(42, 117, 140);
     --primary-light: rgb(95, 185, 213);
     --bg-color: rgb(66, 66, 66);
-    --bg-secondary: rgb(80, 80, 80);
+    --bg-secondary: rgba(255, 255, 255, .06);
     --border-color: rgb(100, 100, 100);
     --text-primary: #ffffff;
     --text-secondary: #cccccc;
@@ -207,7 +207,7 @@ body {
     display: flex;
     gap: 0.5rem;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.06);
+    background-color: var(--bg-secondary);
     padding: 0.5rem;
     border-radius: 6px;
     border: 1px solid var(--border-color);
@@ -218,10 +218,10 @@ body {
 .fader-input {
     flex: 1;
     min-width: 0;
-    height: 6px;
+    height: 30px;
     -webkit-appearance: none;
     appearance: none;
-    background: linear-gradient(to right, #ddd, var(--primary-color));
+    background: var(--bg-secondary);
     border-radius: 3px;
     outline: none;
     cursor: pointer;
@@ -309,7 +309,7 @@ body {
 }
 
 .colorwheel-wrapper {
-    background-color: rgba(255, 255, 255, 0.06);
+    background-color: var(--bg-secondary);
     border-radius: 6px;
     border: 1px solid var(--border-color);
     padding: 0.75rem;
@@ -348,7 +348,7 @@ body {
 
 .radio-option {
     padding: 0.4rem;
-    background-color: rgba(255, 255, 255, 0.06);
+    background-color: var(--bg-secondary);
     border: 2px solid var(--border-color);
     border-radius: 6px;
     cursor: pointer;
@@ -382,7 +382,7 @@ body {
 
 .label-text {
     padding: 0.75rem;
-    background-color: rgba(255, 255, 255, 0.06);
+    background-color: var(--bg-secondary);
     border-left: 4px solid var(--primary-color);
     border-radius: 4px;
     font-size: 0.9rem;

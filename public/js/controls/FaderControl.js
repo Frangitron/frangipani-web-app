@@ -26,7 +26,13 @@ export class FaderControl {
         this.input.addEventListener('input', () => this.handleInput());
         this.input.addEventListener('mousedown', () => { this.isUserInteracting = true; });
         this.input.addEventListener('mouseup', () => { this.isUserInteracting = false; });
-        this.input.addEventListener('touchstart', () => { this.isUserInteracting = true; });
+        this.input.addEventListener('touchstart', (e) => {
+            this.isUserInteracting = true;
+            this.updateValueFromTouch(e);
+        });
+        this.input.addEventListener('touchmove', (e) => {
+            this.updateValueFromTouch(e);
+        })
         this.input.addEventListener('touchend', () => { this.isUserInteracting = false; });
 
         return this.element;
@@ -47,5 +53,19 @@ export class FaderControl {
             this.input.value = value;
             this.updateValueDisplay();
         }
+    }
+
+    updateValueFromTouch(e) {
+        const touch = e.touches[0];
+        const rect = this.input.getBoundingClientRect();
+        const percent = (touch.clientX - rect.left) / rect.width;
+        const value = this.control.min || 0;
+        const max = this.control.max || 100;
+        const min = this.control.min || 0;
+        const newValue = Math.round(min + percent * (max - min));
+        const clampedValue = Math.max(min, Math.min(max, newValue));
+
+        this.input.value = clampedValue;
+        this.handleInput();
     }
 }
