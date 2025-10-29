@@ -185,6 +185,7 @@ body {
     gap: 0.35rem;
     min-height: 0;
     flex-shrink: 1;
+    margin: auto;
 }
 
 .control-label {

@@ -14,7 +14,6 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.use(express.json());
 
 // Store all controls state
-// Store all controls state
 let controlsState = {
     controls: [
         {
