@@ -26,7 +26,14 @@ export class RadioControl {
                 optionElement.classList.add('active');
             }
 
-            optionElement.addEventListener('click', () => this.handleOptionClick(option, optionElement));
+            optionElement.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                this.handleOptionChange(option, optionElement)
+            });
+            optionElement.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                this.handleOptionChange(option, optionElement)
+            });
 
             this.optionElements.set(option, optionElement);
             optionsContainer.appendChild(optionElement);
@@ -35,7 +42,7 @@ export class RadioControl {
         return this.element;
     }
 
-    handleOptionClick(option, element) {
+    handleOptionChange(option, element) {
         // Remove active from all
         this.optionElements.forEach(el => el.classList.remove('active'));
 
