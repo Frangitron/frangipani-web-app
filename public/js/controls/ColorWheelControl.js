@@ -91,16 +91,14 @@ export class ColorWheelControl {
         const width = rect.width;
         const height = rect.height;
 
-        // Fallback to the default size if canvas hasn't been laid out yet
         if (width === 0 || height === 0) {
             requestAnimationFrame(() => this.drawColorWheel());
             return;
         }
 
         // Set canvas resolution
-        this.canvas.width = width * window.devicePixelRatio;
-        this.canvas.height = height * window.devicePixelRatio;
-        ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+        this.canvas.width = width;
+        this.canvas.height = height;
 
         const centerX = width / 2;
         const centerY = height / 2;

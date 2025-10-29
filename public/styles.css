@@ -331,45 +331,6 @@ body {
     display: block;
 }
 
-.colorwheel-saturation-wrapper {
-    width: 90%;
-    max-width: 250px;
-    flex-shrink: 0;
-}
-
-.colorwheel-saturation {
-    width: 100%;
-    height: 8px;
-    -webkit-appearance: none;
-    appearance: none;
-    background: linear-gradient(to right, #ccc, var(--primary-color));
-    border-radius: 4px;
-    outline: none;
-    cursor: pointer;
-}
-
-.colorwheel-saturation::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    background-color: rgba(255, 255, 255, 0.06);
-    border: 2px solid var(--primary-color);
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-}
-
-.colorwheel-saturation::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
-    background-color: rgba(255, 255, 255, 0.06);
-    border: 2px solid var(--primary-color);
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-}
-
 /* Radio Control */
 .radio-control {
     width: 100%;
@@ -460,14 +421,6 @@ body {
         padding: 0.35rem;
     }
 
-    .colorwheel-canvas {
-        max-width: 180px;
-    }
-
-    .colorwheel-saturation-wrapper {
-        max-width: 180px;
-    }
-
     .fader-wrapper {
         padding: 0.4rem;
         gap: 0.4rem;
@@ -529,14 +482,6 @@ body {
     .radio-option {
         font-size: 0.75rem;
         padding: 0.25rem;
-    }
-
-    .colorwheel-canvas {
-        max-width: 150px;
-    }
-
-    .colorwheel-saturation-wrapper {
-        max-width: 150px;
     }
 
     .colorwheel-wrapper {
