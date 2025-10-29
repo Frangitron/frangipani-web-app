@@ -3,7 +3,7 @@ A single web page app.
 - dependencies: ws, cors
 - fullscreen, responsive, scales to always fit screen
 - style: primary color is rgb(75, 165, 193), background color is rgb(66, 66, 66)
-- minimize unused space
+- minimize unused space in viewport
 - touch first (meant to be used on a tablet)
 - a layout of controls is received from server in JSON
 	- fader
