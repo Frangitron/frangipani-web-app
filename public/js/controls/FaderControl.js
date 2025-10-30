@@ -1,3 +1,5 @@
+import { Orientation } from "./base/enum_orientation.js";
+
 
 export class FaderControl {
     constructor(control, onChangeCallback) {
@@ -22,7 +24,7 @@ export class FaderControl {
         this.input.value = this.control.value;
 
         // Apply vertical class if the flag is set
-        if (this.control.vertical) {
+        if (this.control.orientation === Orientation.Vertical) {
             this.element.classList.add('fader-vertical');
             this.input.classList.add('fader-input-vertical');
         }

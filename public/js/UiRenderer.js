@@ -17,7 +17,7 @@ export class UIRenderer {
         let maxCol = 0;
 
         for (let control of controls) {
-            if (control.type !== 'group') {
+            if (control._type !== 'Group') {
                 const row = control.placement.row || 0;
                 const column = control.placement.column || 0;
                 const rowSpan = control.placement.spanRow || 1;
@@ -41,7 +41,7 @@ export class UIRenderer {
             const element = this.renderControl(control, onChangeCallback);
             if (element) {
                 // Apply grid positioning for non-group controls
-                if (control.type !== 'group' && maxCol > 0) {
+                if (control._type !== 'Group' && maxCol > 0) {
                     const row = control.placement.row || 0;
                     const column = control.placement.column || 0;
                     const rowSpan = control.placement.spanRow || 1;
@@ -57,7 +57,7 @@ export class UIRenderer {
     }
 
     renderControl(control, onChangeCallback) {
-        if (control.type === 'group') {
+        if (control._type === 'Group') {
             return this.renderGroup(control, onChangeCallback);
         }
 
@@ -81,15 +81,13 @@ export class UIRenderer {
         let maxCol = 0;
 
         for (let control of group.controls) {
-            if (control.type !== 'group') {
-                const row = control.placement.row || 0;
-                const column = control.placement.column || 0;
-                const rowSpan = control.placement.spanRow || 1;
-                const colSpan = control.placement.spanColumn || 1;
+            const row = control.placement.row || 0;
+            const column = control.placement.column || 0;
+            const rowSpan = control.placement.spanRow || 1;
+            const colSpan = control.placement.spanColumn || 1;
 
-                if (row + rowSpan > maxRow) maxRow = row + rowSpan;
-                if (column + colSpan > maxCol) maxCol = column + colSpan;
-            }
+            if (row + rowSpan > maxRow) maxRow = row + rowSpan;
+            if (column + colSpan > maxCol) maxCol = column + colSpan;
         }
 
         // Set up the grid layout
@@ -105,7 +103,7 @@ export class UIRenderer {
             const element = this.renderControl(control, onChangeCallback);
             if (element) {
                 // Apply grid positioning for non-group controls
-                if (control.type !== 'group' && maxCol > 0) {
+                if (maxCol > 0) {
                     const row = control.placement.row || 0;
                     const column = control.placement.column || 0;
                     const rowSpan = control.placement.spanRow || 1;
@@ -123,22 +121,21 @@ export class UIRenderer {
     }
 
     createControlInstance(control, onChangeCallback) {
-        switch (control.type) {
-            case 'fader':
+        switch (control._type) {
+            case 'Fader':
                 return new FaderControl(control, onChangeCallback);
-            case 'button':
+            case 'Button':
                 return new ButtonControl(control, onChangeCallback);
-            case 'colorwheel':
+            case 'ColorWheel':
                 return new ColorWheelControl(control, onChangeCallback);
-            case 'radio':
+            case 'Radio':
                 return new RadioControl(control, onChangeCallback);
-            case 'label':
+            case 'Label':
                 return new LabelControl(control);
-            case 'spacer':
+            case 'Spacer':
                 return new SpacerControl(control);
             default:
-                console.warn(`Unknown control type: ${control.type}`);
-                return null;
+                throw new Error(`Unknown control type: ${control._type}`);
         }
     }
 

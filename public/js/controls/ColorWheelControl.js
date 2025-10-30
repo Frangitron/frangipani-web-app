@@ -4,8 +4,8 @@ export class ColorWheelControl {
         this.onChangeCallback = onChangeCallback;
         this.element = null;
         this.canvas = null;
-        this.hue = control.hue || 0;
-        this.brightness = control.brightness || 50;
+        this.hue = control.value[0] || 0;
+        this.brightness = control.value[1] || 50;
         this.saturation = 100; // Always 100 internally
         this.isUserInteracting = false;
         this.imageData = null;
@@ -184,10 +184,7 @@ export class ColorWheelControl {
         this.brightness = Math.max((1 - distance / radius) * 50 + 50, 50);
 
         this.drawColorWheel();
-        this.onChangeCallback(this.control.address, {
-            hue: Math.round(this.hue),
-            brightness: Math.round(this.brightness)
-        });
+        this.onChangeCallback(this.control.address, [Math.round(this.hue), Math.round(this.brightness)]);
     }
 
     hslToRgb(h, s, l) {
@@ -224,11 +221,11 @@ export class ColorWheelControl {
     }
 
     updateUI(value) {
-        if (value.hue !== undefined) {
-            this.hue = value.hue;
+        if (value[0] !== undefined) {
+            this.hue = value[0];
         }
-        if (value.brightness !== undefined) {
-            this.brightness = value.brightness;
+        if (value[1] !== undefined) {
+            this.brightness = value[1];
         }
         this.drawColorWheel();
     }

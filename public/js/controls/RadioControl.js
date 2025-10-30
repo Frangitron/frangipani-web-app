@@ -5,7 +5,7 @@ export class RadioControl {
         this.element = null;
         this.options = control.options || [];
         this.currentValue = control.value;
-        this.optionElements = new Map();
+        this.optionElements = [];
     }
 
     render() {
@@ -17,12 +17,13 @@ export class RadioControl {
 
         const optionsContainer = this.element.querySelector('.radio-options');
 
+        let index = 0;
         for (let option of this.options) {
             const optionElement = document.createElement('div');
             optionElement.className = 'radio-option';
             optionElement.textContent = option;
 
-            if (option === this.currentValue) {
+            if (index === this.currentValue) {
                 optionElement.classList.add('active');
             }
 
@@ -35,8 +36,9 @@ export class RadioControl {
                 this.handleOptionChange(option, optionElement)
             });
 
-            this.optionElements.set(option, optionElement);
+            this.optionElements.push(optionElement);
             optionsContainer.appendChild(optionElement);
+            index++;
         }
 
         return this.element;
@@ -46,11 +48,11 @@ export class RadioControl {
         // Remove active from all
         this.optionElements.forEach(el => el.classList.remove('active'));
 
-        // Add active to clicked
+        // Add active to the touched element
         element.classList.add('active');
 
-        this.currentValue = option;
-        this.onChangeCallback(this.control.address, option);
+        this.currentValue = this.options.indexOf(option);
+        this.onChangeCallback(this.control.address, this.currentValue);
     }
 
     updateUI(value) {
@@ -58,11 +60,7 @@ export class RadioControl {
         this.optionElements.forEach(el => el.classList.remove('active'));
 
         // Add active to new value
-        const element = this.optionElements.get(value);
-        if (element) {
-            element.classList.add('active');
-        }
-
+        this.optionElements[value].classList.add('active');
         this.currentValue = value;
     }
 }

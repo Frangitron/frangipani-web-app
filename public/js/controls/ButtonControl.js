@@ -14,7 +14,7 @@ export class ButtonControl {
         this.button = this.element.querySelector('.button-input');
         this.button.textContent = this.control.label;
 
-        if (this.control.toggleMode) {
+        if (this.control.is_toggle) {
             this.updateToggleState();
             this.button.addEventListener('mousedown', (e) => {
                 e.preventDefault();
@@ -42,6 +42,8 @@ export class ButtonControl {
                 this.handleRelease();
             })
         }
+
+        this.updateToggleState();
 
         return this.element;
     }

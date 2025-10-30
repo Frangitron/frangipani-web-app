@@ -55,13 +55,12 @@ class App {
     }
 
     handleMessage(msg) {
-        if (msg.type === 'InitMessage') {
+        if (msg._type === 'InitMessage') {
             this.clientId = msg.client_id;
-            this.controlsManager.setClientId(this.client_id);
             this.controlsManager.loadControls([msg.root_control_definition]);
             this.renderUI();
 
-        } else if (msg.type === 'UpdateMessage') {
+        } else if (msg._type === 'UpdateMessage') {
             if (msg.sender_id !== this.clientId) {
                 this.controlsManager.updateControl(msg.address, msg.value);
                 this.uiRenderer.updateControlUI(msg.address, msg.value);

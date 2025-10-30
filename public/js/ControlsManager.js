@@ -1,12 +1,7 @@
 export class ControlsManager {
     constructor() {
         this.controls = [];
-        this.clientId = null;
         this.controlMap = new Map();
-    }
-
-    setClientId(clientId) {
-        this.clientId = clientId;
     }
 
     loadControls(controls) {
