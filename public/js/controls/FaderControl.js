@@ -48,7 +48,7 @@ export class FaderControl {
     handleInput() {
         const value = parseInt(this.input.value);
         this.updateValueDisplay();
-        this.onChangeCallback(this.control.id, value);
+        this.onChangeCallback(this.control.address, value);
     }
 
     updateValueDisplay() {

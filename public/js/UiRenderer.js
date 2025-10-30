@@ -18,17 +18,17 @@ export class UIRenderer {
 
         for (let control of controls) {
             if (control.type !== 'group') {
-                const row = control.row || 0;
-                const column = control.column || 0;
-                const rowSpan = control.rowSpan || 1;
-                const colSpan = control.colSpan || 1;
+                const row = control.placement.row || 0;
+                const column = control.placement.column || 0;
+                const rowSpan = control.placement.spanRow || 1;
+                const colSpan = control.placement.spanColumn || 1;
 
                 if (row + rowSpan > maxRow) maxRow = row + rowSpan;
                 if (column + colSpan > maxCol) maxCol = column + colSpan;
             }
         }
 
-        // Set up grid layout for top-level controls
+        // Set up the grid layout for top-level controls
         if (maxCol > 0) {
             container.style.display = 'grid';
             container.style.gridTemplateColumns = `repeat(${maxCol}, 1fr)`;
@@ -42,10 +42,10 @@ export class UIRenderer {
             if (element) {
                 // Apply grid positioning for non-group controls
                 if (control.type !== 'group' && maxCol > 0) {
-                    const row = control.row || 0;
-                    const column = control.column || 0;
-                    const rowSpan = control.rowSpan || 1;
-                    const colSpan = control.colSpan || 1;
+                    const row = control.placement.row || 0;
+                    const column = control.placement.column || 0;
+                    const rowSpan = control.placement.spanRow || 1;
+                    const colSpan = control.placement.spanColumn || 1;
 
                     element.style.gridColumn = `${column + 1} / span ${colSpan}`;
                     element.style.gridRow = `${row + 1} / span ${rowSpan}`;
@@ -63,7 +63,7 @@ export class UIRenderer {
 
         const controlInstance = this.createControlInstance(control, onChangeCallback);
         const element = controlInstance.render();
-        this.controlInstances.set(control.id, controlInstance);
+        this.controlInstances.set(control.address, controlInstance);
         return element;
     }
 
@@ -88,10 +88,10 @@ export class UIRenderer {
         let maxCol = 0;
 
         for (let control of controls) {
-            const row = control.row || 0;
-            const column = control.column || 0;
-            const rowSpan = control.rowSpan || 1;
-            const colSpan = control.colSpan || 1;
+            const row = control.placement.row || 0;
+            const column = control.placement.column || 0;
+            const rowSpan = control.placement.spanColumn || 1;
+            const colSpan = control.placement.spanRow || 1;
 
             if (row + rowSpan > maxRow) maxRow = row + rowSpan;
             if (column + colSpan > maxCol) maxCol = column + colSpan;
@@ -109,16 +109,16 @@ export class UIRenderer {
             const element = controlInstance.render();
 
             if (element) {
-                const row = control.row || 0;
-                const column = control.column || 0;
-                const rowSpan = control.rowSpan || 1;
-                const colSpan = control.colSpan || 1;
+                const row = control.placement.row || 0;
+                const column = control.placement.column || 0;
+                const rowSpan = control.placement.spanRow || 1;
+                const colSpan = control.placement.spanColumn || 1;
 
                 // Apply grid positioning
                 element.style.gridColumn = `${column + 1} / span ${colSpan}`;
                 element.style.gridRow = `${row + 1} / span ${rowSpan}`;
 
-                this.controlInstances.set(control.id, controlInstance);
+                this.controlInstances.set(control.address, controlInstance);
                 container.appendChild(element);
             }
         }

@@ -55,17 +55,16 @@ class App {
     }
 
     handleMessage(msg) {
-        if (msg.type === 'init') {
-            // Initial state received
-            this.clientId = msg.clientId;
-            this.controlsManager.setClientId(this.clientId);
-            this.controlsManager.loadControls(msg.data.controls);
+        if (msg.type === 'InitMessage') {
+            this.clientId = msg.client_id;
+            this.controlsManager.setClientId(this.client_id);
+            this.controlsManager.loadControls([msg.root_control_definition]);
             this.renderUI();
-        } else if (msg.type === 'update') {
-            // Update from another client
-            if (msg.senderId !== this.clientId) {
-                this.controlsManager.updateControl(msg.controlId, msg.value);
-                this.uiRenderer.updateControlUI(msg.controlId, msg.value);
+
+        } else if (msg.type === 'UpdateMessage') {
+            if (msg.sender_id !== this.clientId) {
+                this.controlsManager.updateControl(msg.address, msg.value);
+                this.uiRenderer.updateControlUI(msg.address, msg.value);
             }
         }
     }
@@ -75,21 +74,21 @@ class App {
         container.innerHTML = '';
         
         const controls = this.controlsManager.getControls();
-        this.uiRenderer.renderControls(container, controls, (controlId, value) => {
-            this.onControlChange(controlId, value);
+        this.uiRenderer.renderControls(container, controls, (address, value) => {
+            this.onControlChange(address, value);
         });
     }
 
-    onControlChange(controlId, value) {
-        // Update local state
-        this.controlsManager.updateControl(controlId, value);
-        
-        // Send to server
-        this.wsClient.send({
-            type: 'update',
-            controlId: controlId,
+    onControlChange(address, value) {
+        this.controlsManager.updateControl(address, value);
+
+        let message = {
+            sender_id: this.clientId,
+            type: 'UpdateMessage',
+            address: address,
             value: value
-        });
+        }
+        this.wsClient.send(message);
     }
 
     updateStatus(status) {

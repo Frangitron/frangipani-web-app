@@ -184,7 +184,7 @@ export class ColorWheelControl {
         this.brightness = Math.max((1 - distance / radius) * 50 + 50, 50);
 
         this.drawColorWheel();
-        this.onChangeCallback(this.control.id, {
+        this.onChangeCallback(this.control.address, {
             hue: Math.round(this.hue),
             brightness: Math.round(this.brightness)
         });

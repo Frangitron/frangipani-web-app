@@ -48,7 +48,7 @@ export class ButtonControl {
 
     _update() {
         this.updateToggleState();
-        this.onChangeCallback(this.control.id, this.isPressed);
+        this.onChangeCallback(this.control.address, this.isPressed);
     }
 
     handleToggle() {

@@ -50,7 +50,7 @@ export class RadioControl {
         element.classList.add('active');
 
         this.currentValue = option;
-        this.onChangeCallback(this.control.id, option);
+        this.onChangeCallback(this.control.address, option);
     }
 
     updateUI(value) {

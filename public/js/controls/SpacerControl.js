@@ -6,7 +6,7 @@ export class SpacerControl {
     render() {
         const spacer = document.createElement('div');
         spacer.className = 'spacer-control';
-        spacer.id = this.control.id;
+        spacer.address = this.control.address;
 
         // Make it flexible to expand and fill available space
         spacer.style.flex = '1';

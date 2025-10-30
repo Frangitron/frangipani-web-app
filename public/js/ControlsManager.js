@@ -18,7 +18,7 @@ export class ControlsManager {
         this.controlMap.clear();
         const traverse = (items) => {
             for (let control of items) {
-                this.controlMap.set(control.id, control);
+                this.controlMap.set(control.address, control);
                 if (control.controls && Array.isArray(control.controls)) {
                     traverse(control.controls);
                 }
@@ -40,9 +40,5 @@ export class ControlsManager {
                 control.value = value;
             }
         }
-    }
-
-    getControl(controlId) {
-        return this.controlMap.get(controlId);
     }
 }
