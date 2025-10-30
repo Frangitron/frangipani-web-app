@@ -31,12 +31,8 @@ export class WebSocketClient {
         });
 
         this.ws.addEventListener('message', (event) => {
-            try {
-                const msg = JSON.parse(event.data);
-                this._messageCallbacks.forEach(cb => cb(msg));
-            } catch (error) {
-                console.error('Error parsing message:', error);
-            }
+            const msg = JSON.parse(event.data);
+            this._messageCallbacks.forEach(cb => cb(msg));
         });
 
         this.ws.addEventListener('error', (error) => {
