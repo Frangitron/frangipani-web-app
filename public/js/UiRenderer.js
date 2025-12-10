@@ -17,7 +17,7 @@ export class UIRenderer {
         let maxCol = 0;
 
         for (let control of controls) {
-            if (control._type !== 'Group') {
+            if (control.__type__ !== 'Group') {
                 const row = control.placement.row || 0;
                 const column = control.placement.column || 0;
                 const rowSpan = control.placement.spanRow || 1;
@@ -41,7 +41,7 @@ export class UIRenderer {
             const element = this.renderControl(control, onChangeCallback);
             if (element) {
                 // Apply grid positioning for non-group controls
-                if (control._type !== 'Group' && maxCol > 0) {
+                if (control.__type__ !== 'Group' && maxCol > 0) {
                     const row = control.placement.row || 0;
                     const column = control.placement.column || 0;
                     const rowSpan = control.placement.spanRow || 1;
@@ -57,7 +57,7 @@ export class UIRenderer {
     }
 
     renderControl(control, onChangeCallback) {
-        if (control._type === 'Group') {
+        if (control.__type__ === 'Group') {
             return this.renderGroup(control, onChangeCallback);
         }
 
@@ -121,7 +121,7 @@ export class UIRenderer {
     }
 
     createControlInstance(control, onChangeCallback) {
-        switch (control._type) {
+        switch (control.__type__) {
             case 'Fader':
                 return new FaderControl(control, onChangeCallback);
             case 'Button':
@@ -135,7 +135,7 @@ export class UIRenderer {
             case 'Spacer':
                 return new SpacerControl(control);
             default:
-                throw new Error(`Unknown control type: ${control._type}`);
+                throw new Error(`Unknown control type: ${control.__type__}`);
         }
     }
 

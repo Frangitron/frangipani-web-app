@@ -15,7 +15,7 @@ Static files for Frangipani's web control app
     "spanColumn": 1,
     "spanRow": 1
   },
-  "_type": "Group",
+  "__type__": "Group",
   "controls": [
     {
       "label": "Faders",
@@ -25,7 +25,7 @@ Static files for Frangipani's web control app
         "spanColumn": 4,
         "spanRow": 1
       },
-      "_type": "Group",
+      "__type__": "Group",
       "controls": [
         {
           "label": "Fader 1",
@@ -35,7 +35,7 @@ Static files for Frangipani's web control app
             "spanColumn": 1,
             "spanRow": 1
           },
-          "_type": "Fader",
+          "__type__": "Fader",
           "address": "/fader1",
           "value": 0.0,
           "max": null,
@@ -50,7 +50,7 @@ Static files for Frangipani's web control app
             "spanColumn": 1,
             "spanRow": 1
           },
-          "_type": "Fader",
+          "__type__": "Fader",
           "address": "/fader2",
           "value": 0.0,
           "max": null,
@@ -65,7 +65,7 @@ Static files for Frangipani's web control app
             "spanColumn": 1,
             "spanRow": 1
           },
-          "_type": "Fader",
+          "__type__": "Fader",
           "address": "/fader3",
           "value": 0.5,
           "max": null,
@@ -80,7 +80,7 @@ Static files for Frangipani's web control app
             "spanColumn": 1,
             "spanRow": 1
           },
-          "_type": "Fader",
+          "__type__": "Fader",
           "address": "/fader4",
           "value": 0.5,
           "max": null,
@@ -95,7 +95,7 @@ Static files for Frangipani's web control app
             "spanColumn": 4,
             "spanRow": 1
           },
-          "_type": "Radio",
+          "__type__": "Radio",
           "address": "/radio1",
           "value": 0,
           "options": [
@@ -116,7 +116,7 @@ Static files for Frangipani's web control app
         "spanColumn": 1,
         "spanRow": 1
       },
-      "_type": "ColorWheel",
+      "__type__": "ColorWheel",
       "address": "/color_wheel",
       "value": [
         0.0,
@@ -131,7 +131,7 @@ Static files for Frangipani's web control app
         "spanColumn": 1,
         "spanRow": 1
       },
-      "_type": "Button",
+      "__type__": "Button",
       "address": "/button1",
       "value": false,
       "is_toggle": false
@@ -144,7 +144,7 @@ Static files for Frangipani's web control app
         "spanColumn": 1,
         "spanRow": 1
       },
-      "_type": "Button",
+      "__type__": "Button",
       "address": "/button2",
       "value": true,
       "is_toggle": true
@@ -157,7 +157,7 @@ Static files for Frangipani's web control app
         "spanColumn": 1,
         "spanRow": 1
       },
-      "_type": "Button",
+      "__type__": "Button",
       "address": "/button3",
       "value": false,
       "is_toggle": true
