@@ -87,29 +87,41 @@ export class ColorWheelControl {
 
     drawColorWheel() {
         const ctx = this.canvas.getContext('2d');
-        const rect = this.canvas.getBoundingClientRect();
-        const width = rect.width;
-        const height = rect.height;
+        if (!ctx) return;
 
-        if (width === 0 || height === 0) {
+        const rect = this.canvas.getBoundingClientRect();
+        const cssWidth = rect.width;
+        const cssHeight = rect.height;
+
+        if (cssWidth === 0 || cssHeight === 0) {
             requestAnimationFrame(() => this.drawColorWheel());
             return;
         }
 
-        // Set canvas resolution
-        this.canvas.width = width;
-        this.canvas.height = height;
+        const dpr = window.devicePixelRatio || 1;
+
+        // IMPORTANT: integer backing store sizes (prevents mobile/Chromium issues with fractional sizes)
+        const width = Math.max(1, Math.round(cssWidth * dpr));
+        const height = Math.max(1, Math.round(cssHeight * dpr));
+
+        // Keep CSS size stable; change only backing store resolution
+        this.canvas.style.width = `${cssWidth}px`;
+        this.canvas.style.height = `${cssHeight}px`;
+
+        if (this.canvas.width !== width) this.canvas.width = width;
+        if (this.canvas.height !== height) this.canvas.height = height;
 
         const centerX = width / 2;
         const centerY = height / 2;
-        const radius = Math.min(width, height) / 2 - 5;
+        const radius = Math.min(width, height) / 2 - Math.round(5 * dpr);
 
         // Draw background
-        this.drawBackground(ctx, width, height);
+        this.drawBackground(ctx, width, height, dpr);
 
         // Draw the current position indicator
-        this.drawPositionIndicator(ctx, centerX, centerY, radius);
+        this.drawPositionIndicator(ctx, centerX, centerY, radius, dpr);
     }
+
 
     drawPositionIndicator(ctx, centerX, centerY, radius) {
         const angle = (this.hue / 360) * 2 * Math.PI - Math.PI;
