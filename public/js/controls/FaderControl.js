@@ -69,7 +69,7 @@ export class FaderControl {
         const rect = this.input.getBoundingClientRect();
 
         let percent;
-        if (this.control.vertical) {
+        if (this.control.orientation === Orientation.Vertical) {
             // For vertical faders, use clientY (inverted so top = max)
             percent = 1 - (touch.clientY - rect.top) / rect.height;
         } else {
